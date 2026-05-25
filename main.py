@@ -24,6 +24,7 @@ st.markdown("""
 
 # ── ESTADO DE LICENCIA ────────────────────────────────────────────────────────
 est = estado_actual()
+MODO_ADMIN = est.get("plan") == "ADMIN"
 
 # ── SIN LICENCIA: PANTALLA DE ACTIVACIÓN ─────────────────────────────────────
 if not est["activo"] and not est.get("clave"):
@@ -84,8 +85,13 @@ if not est["activo"] and est.get("clave"):
 
 # ── PANEL PRINCIPAL (LICENCIA ACTIVA) ─────────────────────────────────────────
 plan      = est.get("plan", "")
-info_plan = PLAN_LIMITES.get(plan, {})
-permisos  = info_plan.get("permisos", {})
+# MODO ADMIN: permisos totales, sin plan_limites
+if MODO_ADMIN:
+    info_plan = {"nombre": "🔐 Admin", "precio": 0, "permisos": {k: True for k in ["usb","disco_duro","sd_card","celular"]}, "descripcion": "Acceso total"}
+    permisos  = info_plan["permisos"]
+else:
+    info_plan = PLAN_LIMITES.get(plan, {})
+    permisos  = info_plan.get("permisos", {})
 dias      = est.get("dias_restantes", 0)
 email     = est.get("email", "")
 clave     = est.get("clave", "")

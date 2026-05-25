@@ -8,6 +8,13 @@ from datetime import datetime
 
 _LIC_FILE  = os.path.join(os.path.dirname(__file__), "licencia.json")
 SERVER_URL = os.environ.get("RECOVERY_SERVER", "https://recovery-pro.up.railway.app").rstrip("/")
+MASTER_KEY = os.environ.get("MASTER_KEY", "admindasoto88")
+
+_MASTER_RESP = {
+    "activo": True, "plan": "ADMIN", "dias_restantes": 9999,
+    "email": "admin@local", "fecha_fin": "2099-12-31",
+    "permisos": {"usb": True, "disco_duro": True, "sd_card": True, "celular": True},
+}
 
 # Permisos por plan (para UI sin conexión temporal)
 PLAN_LIMITES = {
@@ -70,6 +77,9 @@ def cargar_licencia_local() -> dict | None:
 def activar(clave: str) -> dict:
     """Intenta activar la clave contra el servidor."""
     clave = clave.strip().upper()
+    if clave == MASTER_KEY:
+        guardar_licencia_local(clave, _MASTER_RESP)
+        return {"ok": True, "msg": "🔐 Modo Admin activado.", "datos": _MASTER_RESP}
     if not validar_formato(clave):
         return {"ok": False, "msg": "Formato inválido. Usa: RECOVERY-XXXX-XXXX-XXXX"}
     res = verificar_online(clave)
@@ -92,6 +102,9 @@ def estado_actual() -> dict:
         return {"activo": False, "plan": None, "dias_restantes": 0, "clave": None}
 
     clave = local.get("clave", "")
+    # MASTER_KEY: no necesita servidor
+    if clave == MASTER_KEY:
+        return {**_MASTER_RESP, "clave": clave}
     res   = verificar_online(clave)
 
     if res.get("activo") is None:
@@ -116,6 +129,8 @@ def verificar_permiso(accion: str) -> bool:
     est = estado_actual()
     if not est.get("activo"):
         return False
+    if est.get("plan") == "ADMIN":
+        return True
     plan     = est.get("plan", "")
     permisos = PLAN_LIMITES.get(plan, {}).get("permisos", {})
     return permisos.get(accion, False)
