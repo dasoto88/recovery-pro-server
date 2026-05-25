@@ -10,9 +10,13 @@ import sqlite3, os, uuid, smtplib
 from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from flask import Flask, request, jsonify, redirect, render_template_string
+from flask import Flask, request, jsonify, redirect, render_template_string, render_template
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('landing.html')
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
 MP_TOKEN   = os.environ.get("MP_ACCESS_TOKEN", "")
