@@ -14,6 +14,10 @@ from flask import Flask, request, jsonify, redirect, render_template_string, ren
 
 app = Flask(__name__)
 
+@app.route('/health')
+def health():
+    return 'Recovery Pro Server OK', 200
+
 @app.route('/')
 def home():
     return render_template('landing.html')
@@ -543,4 +547,5 @@ app.secret_key = os.environ.get("SECRET_KEY", "recovery_secret_2026")
 init_db()
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
