@@ -247,6 +247,23 @@ def pago_exitoso():
     </body></html>
     """, email=email)
 
+@app.route("/gracias")
+def gracias():
+    return render_template_string("""
+    <html><body style="font-family:Arial;background:#0f0f1a;color:#fff;text-align:center;padding:4rem">
+      <div style="max-width:480px;margin:0 auto;background:#16213e;border-radius:20px;
+                  padding:3rem;border:2px solid #22c55e">
+        <div style="font-size:4rem">🎉</div>
+        <h2 style="color:#22c55e">¡Pago recibido!</h2>
+        <p style="color:#aaa">Revisa tu correo electrónico.<br>
+        Recibirás tu clave de licencia en los próximos minutos.</p>
+        <p style="margin-top:1.5rem;color:#aaa;font-size:.9rem">
+          ¿No llega? <a href="https://wa.me/526331124596" style="color:#25D366">WhatsApp 633 112 4596</a>
+        </p>
+      </div>
+    </body></html>
+    """)
+
 @app.route("/pago_fallido")
 def pago_fallido():
     return render_template_string("""
