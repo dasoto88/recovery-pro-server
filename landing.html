@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recovery Pro — Recupera tus Archivos Perdidos</title>
+  <meta name="description" content="Software profesional para recuperar fotos, videos y documentos de USB, discos duros, tarjetas SD y celulares. Desde $299/mes."/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --primary:#6C63FF;
+      --accent:#00d4ff;
+      --danger:#FF6584;
+      --dark:#0f0f1a;
+      --card:#16213e;
+      --green:#22c55e;
+    }
+    body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden}
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      background:linear-gradient(135deg,#0f0f1a 0%,#16213e 50%,#0f3460 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:2rem;position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;width:700px;height:700px;
+      background:radial-gradient(circle,rgba(108,99,255,.2),transparent 70%);
+      top:-150px;left:-150px;animation:pulse 7s ease-in-out infinite;
+    }
+    .hero::after{
+      content:'';position:absolute;width:500px;height:500px;
+      background:radial-gradient(circle,rgba(0,212,255,.15),transparent 70%);
+      bottom:-100px;right:-100px;animation:pulse 9s ease-in-out infinite reverse;
+    }
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+    .badge{
+      background:rgba(0,212,255,.15);border:1px solid var(--accent);
+      color:var(--accent);padding:.4rem 1.2rem;border-radius:999px;
+      font-size:.85rem;letter-spacing:1px;margin-bottom:1.5rem;
+      animation:fadeUp .6s ease both;
+    }
+    .hero h1{
+      font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.1;
+      background:linear-gradient(135deg,#fff 30%,var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:fadeUp .8s ease .2s both;
+    }
+    .hero h1 span{-webkit-text-fill-color:var(--danger);color:var(--danger)}
+    .hero p{
+      max-width:580px;margin:1.5rem auto;color:#aaa;font-size:1.15rem;line-height:1.7;
+      animation:fadeUp .8s ease .4s both;
+    }
+    .emoji-float{font-size:5rem;animation:float 3s ease-in-out infinite;margin-bottom:1rem}
+
+    .cta-group{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s ease .6s both}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--primary),#9b5de5);
+      color:#fff;padding:.9rem 2.2rem;border:none;border-radius:12px;
+      font-size:1.1rem;font-weight:700;cursor:pointer;text-decoration:none;
+      transition:transform .2s,box-shadow .2s;
+      box-shadow:0 4px 20px rgba(108,99,255,.4);display:inline-block;
+    }
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(108,99,255,.6)}
+    .btn-wa{
+      background:linear-gradient(135deg,#25D366,#128C7E);
+      color:#fff;padding:.9rem 2.2rem;border:none;border-radius:12px;
+      font-size:1.1rem;font-weight:700;cursor:pointer;text-decoration:none;
+      transition:transform .2s,box-shadow .2s;
+      box-shadow:0 4px 20px rgba(37,211,102,.3);display:inline-block;
+    }
+    .btn-wa:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,.5)}
+
+    .urgency{
+      margin-top:2rem;background:rgba(255,101,132,.1);
+      border:1px solid rgba(255,101,132,.4);border-radius:12px;
+      padding:.8rem 1.5rem;font-size:.95rem;color:var(--danger);font-weight:600;
+      animation:fadeUp .8s ease .8s both;display:inline-block;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--danger);
+      display:inline-block;margin-right:6px;animation:blink 1.2s infinite}
+
+    /* DEVICES */
+    section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+    .section-title{text-align:center;font-size:2rem;font-weight:800;margin-bottom:.5rem}
+    .section-sub{text-align:center;color:#888;margin-bottom:3rem}
+
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem}
+    .card{
+      background:var(--card);border:1px solid rgba(255,255,255,.07);
+      border-radius:20px;padding:2rem;transition:transform .3s,border-color .3s;
+    }
+    .card:hover{transform:translateY(-6px);border-color:var(--primary)}
+    .card-icon{font-size:2.8rem;margin-bottom:1rem}
+    .card h3{font-size:1.05rem;margin-bottom:.5rem}
+    .card p{color:#888;font-size:.9rem;line-height:1.6}
+
+    /* PRICING */
+    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;max-width:900px;margin:0 auto}
+    .pricing-box{
+      background:var(--card);border:1px solid rgba(255,255,255,.1);
+      border-radius:24px;padding:2.5rem;text-align:center;position:relative;overflow:hidden;
+      transition:transform .3s,border-color .3s;
+    }
+    .pricing-box:hover{transform:translateY(-6px)}
+    .pricing-box.popular{border:2px solid var(--primary)}
+    .pricing-box.popular::before{
+      content:'⭐ MÁS POPULAR';position:absolute;top:16px;right:-28px;
+      background:var(--primary);color:#fff;font-size:.7rem;font-weight:700;
+      padding:.3rem 3rem;transform:rotate(40deg);letter-spacing:1px;
+    }
+    .plan-name{font-size:1.2rem;font-weight:800;margin-bottom:.5rem}
+    .plan-price{font-size:3rem;font-weight:900;color:var(--accent);margin:.5rem 0}
+    .plan-price span{font-size:1rem;color:#888}
+    .plan-desc{color:#888;font-size:.9rem;margin-bottom:1.5rem}
+    .plan-features{list-style:none;text-align:left;margin-bottom:1.5rem}
+    .plan-features li{padding:.4rem 0;font-size:.9rem;color:#ccc}
+    .plan-features li::before{content:'✅ ';margin-right:.3rem}
+    .plan-features li.locked{color:#555}
+    .plan-features li.locked::before{content:'🔒 '}
+
+    /* STEPS */
+    .steps{display:flex;flex-direction:column;gap:2rem;max-width:650px;margin:0 auto}
+    .step{display:flex;align-items:flex-start;gap:1.5rem}
+    .step-num{
+      min-width:48px;height:48px;border-radius:50%;
+      background:linear-gradient(135deg,var(--primary),#9b5de5);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:1.2rem;flex-shrink:0;
+    }
+    .step-text h4{margin-bottom:.3rem;font-size:1rem;font-weight:700}
+    .step-text p{color:#888;font-size:.9rem}
+
+    /* TIPOS DE ARCHIVO */
+    .tipos{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:1.5rem}
+    .tipo-chip{
+      background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.4);
+      border-radius:999px;padding:.4rem 1rem;font-size:.85rem;color:#c4bfff;
+    }
+
+    /* TESTIMONIOS */
+    .testimonios{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+    .test-card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.5rem}
+    .stars{color:#FFD700;font-size:1.1rem;margin-bottom:.8rem}
+    .test-card p{color:#ccc;font-size:.9rem;line-height:1.6;font-style:italic}
+    .test-author{margin-top:1rem;font-weight:700;font-size:.85rem;color:#aaa}
+
+    /* GARANTIA */
+    .garantia{
+      background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);
+      border-radius:16px;padding:2rem;text-align:center;max-width:600px;margin:0 auto;
+    }
+    .garantia h3{color:var(--green);font-size:1.4rem;margin-bottom:.5rem}
+    .garantia p{color:#aaa;font-size:.95rem}
+
+    /* CTA FINAL */
+    .cta-final{
+      background:linear-gradient(135deg,rgba(108,99,255,.15),rgba(0,212,255,.1));
+      border:1px solid rgba(108,99,255,.3);border-radius:24px;
+      padding:4rem 2rem;text-align:center;
+    }
+    .cta-final h2{font-size:2.2rem;font-weight:900;margin-bottom:1rem}
+    .cta-final p{color:#aaa;margin-bottom:2rem}
+
+    footer{text-align:center;padding:2rem;color:#555;font-size:.85rem;border-top:1px solid rgba(255,255,255,.05)}
+    footer a{color:var(--primary);text-decoration:none}
+
+    @media(max-width:600px){
+      .hero h1{font-size:2.2rem}
+      .cta-group{flex-direction:column;align-items:center}
+      .btn-primary,.btn-wa{width:100%;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">💾 SOFTWARE DE RECUPERACIÓN PROFESIONAL</div>
+  <div class="emoji-float">🛡️</div>
+  <h1>Recupera tus Archivos<br><span>Perdidos</span> Hoy</h1>
+  <p>Recovery Pro escanea USB, discos duros, tarjetas SD y celulares para rescatar tus fotos, videos y documentos eliminados o corrompidos.</p>
+  <div class="cta-group">
+    <a href="https://wa.me/526331124596?text=Hola,%20quiero%20info%20sobre%20Recovery%20Pro"
+       class="btn-wa" target="_blank">💬 Quiero Recuperar mis Archivos</a>
+    <a href="mailto:dasoto88122911@gmail.com" class="btn-primary">✉️ Escribir al Equipo</a>
+  </div>
+  <div class="urgency">
+    <span class="dot"></span>
+    ⚠️ Cada minuto que pasa, los archivos son más difíciles de recuperar
+  </div>
+</div>
+
+<!-- DISPOSITIVOS -->
+<section>
+  <p class="section-title">¿Qué puedes recuperar?</p>
+  <p class="section-sub">Compatible con todos tus dispositivos de almacenamiento</p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🔌</div>
+      <h3>Memorias USB</h3>
+      <p>Archivos eliminados, USB formateada, memoria corrompida. Recovery Pro los encuentra.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💿</div>
+      <h3>Discos Duros</h3>
+      <p>HDD y SSD internos o externos. Recupera años de fotos y documentos importantes.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📂</div>
+      <h3>Tarjetas SD</h3>
+      <p>Cámaras, drones, GoPro. Rescata tus fotos y videos de viajes o eventos únicos.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>Celulares Android</h3>
+      <p>Fotos borradas, chats, videos. Compatible con Samsung, Xiaomi, Motorola y más.</p>
+    </div>
+  </div>
+  <div class="tipos">
+    <span class="tipo-chip">📷 JPG / PNG / RAW</span>
+    <span class="tipo-chip">🎬 MP4 / MOV / AVI</span>
+    <span class="tipo-chip">📄 PDF / DOCX / XLSX</span>
+    <span class="tipo-chip">🎵 MP3 / WAV / FLAC</span>
+    <span class="tipo-chip">📦 ZIP / RAR</span>
+    <span class="tipo-chip">+ más de 200 formatos</span>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section style="background:rgba(255,255,255,.02);border-radius:24px;padding:4rem 2rem;max-width:1100px;margin:0 auto">
+  <p class="section-title">¿Cómo funciona?</p>
+  <p class="section-sub">Proceso simple en 3 pasos</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <h4>Elige tu plan y activa la licencia</h4>
+        <p>Contáctanos por WhatsApp, elige tu plan y recibe tu clave Recovery Pro en minutos.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <h4>Conecta el dispositivo y escanea</h4>
+        <p>Conecta tu USB, disco o SD. Recovery Pro escanea y lista todos los archivos recuperables.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <h4>Elige y recupera</h4>
+        <p>Selecciona los archivos que necesitas y guárdalos en la carpeta que elijas. Así de fácil.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section>
+  <p class="section-title">Planes y Precios</p>
+  <p class="section-sub">Sin contratos · Cancela cuando quieras</p>
+  <div class="pricing-grid">
+
+    <!-- BASICO -->
+    <div class="pricing-box">
+      <div class="plan-name">Básico</div>
+      <div class="plan-price">$299 <span>/mes</span></div>
+      <div class="plan-desc">Para uso personal y recuperación rápida</div>
+      <ul class="plan-features">
+        <li>Recuperación de USB</li>
+        <li>Fotos, videos y documentos</li>
+        <li>Soporte por WhatsApp</li>
+        <li class="locked">Discos Duros</li>
+        <li class="locked">Tarjetas SD</li>
+        <li class="locked">Celulares Android</li>
+      </ul>
+      <a href="https://wa.me/526331124596?text=Hola,%20quiero%20el%20plan%20Basico%20de%20Recovery%20Pro%20por%20$299"
+         class="btn-wa" target="_blank" style="display:block">💬 Activar Plan Básico</a>
+    </div>
+
+    <!-- PRO -->
+    <div class="pricing-box popular">
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">$599 <span>/mes</span></div>
+      <div class="plan-desc">El más completo para la mayoría</div>
+      <ul class="plan-features">
+        <li>Recuperación de USB</li>
+        <li>Discos Duros HDD y SSD</li>
+        <li>Tarjetas SD y microSD</li>
+        <li>Fotos, videos y documentos</li>
+        <li>Soporte prioritario</li>
+        <li class="locked">Celulares Android</li>
+      </ul>
+      <a href="https://wa.me/526331124596?text=Hola,%20quiero%20el%20plan%20Pro%20de%20Recovery%20Pro%20por%20$599"
+         class="btn-primary" target="_blank" style="display:block">🚀 Activar Plan Pro</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="pricing-box">
+      <div class="plan-name">Premium</div>
+      <div class="plan-price">$999 <span>/mes</span></div>
+      <div class="plan-desc">Todo incluido, sin límites</div>
+      <ul class="plan-features">
+        <li>Recuperación de USB</li>
+        <li>Discos Duros HDD y SSD</li>
+        <li>Tarjetas SD y microSD</li>
+        <li>Celulares Android</li>
+        <li>+200 formatos de archivo</li>
+        <li>Soporte VIP 24/7</li>
+      </ul>
+      <a href="https://wa.me/526331124596?text=Hola,%20quiero%20el%20plan%20Premium%20de%20Recovery%20Pro%20por%20$999"
+         class="btn-wa" target="_blank" style="display:block">💎 Activar Plan Premium</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section>
+  <p class="section-title">Historias reales de rescate</p>
+  <p class="section-sub">Lo que dicen quienes recuperaron lo que creían perdido</p>
+  <div class="testimonios">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Se me formateó la USB con fotos de la boda de mi hija. Con Recovery Pro recuperé el 95% de las fotos en menos de 20 minutos. ¡Lloré de alegría!"</p>
+      <div class="test-author">— Patricia G., Guadalajara</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Perdí 3 años de archivos de trabajo cuando se dañó mi disco duro. Recovery Pro encontró casi todo. Me salvó el trabajo literalmente."</p>
+      <div class="test-author">— Roberto M., Monterrey</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"La tarjeta SD de mi drone se corrompió justo después de grabar un evento importante. Recuperé todos los videos en HD. Increíble herramienta."</p>
+      <div class="test-author">— Carlos V., CDMX</div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section>
+  <div class="garantia">
+    <h3>🛡️ Garantía de Satisfacción</h3>
+    <p>Si Recovery Pro no encuentra ninguno de tus archivos, te devolvemos el pago sin preguntas. Nuestro equipo también puede asistirte en vivo por WhatsApp durante el proceso de recuperación.</p>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section>
+  <div class="cta-final">
+    <h2>¿Tienes archivos perdidos? 🚨</h2>
+    <p>No esperes más — cada hora que pasa los archivos son más difíciles de recuperar. Actúa ahora.</p>
+    <div class="cta-group">
+      <a href="https://wa.me/526331124596?text=Hola,%20necesito%20recuperar%20archivos%20con%20Recovery%20Pro"
+         class="btn-wa" target="_blank">💬 Recuperar mis Archivos Ahora</a>
+      <a href="mailto:dasoto88122911@gmail.com" class="btn-primary">✉️ Enviar Correo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Recovery Pro · Software profesional de recuperación de datos</p>
+  <p style="margin-top:.5rem">
+    <a href="https://wa.me/526331124596">WhatsApp: 633 112 4596</a> ·
+    <a href="mailto:dasoto88122911@gmail.com">dasoto88122911@gmail.com</a>
+  </p>
+</footer>
+
+</body>
+</html>
