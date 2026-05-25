@@ -19,11 +19,11 @@ def home():
     return render_template('landing.html')
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
-MP_TOKEN   = os.environ.get("MP_ACCESS_TOKEN", "")
-APP_URL    = os.environ.get("APP_URL", "http://localhost:5000").rstrip("/")
-ADMIN_PASS = os.environ.get("ADMIN_PASS", "adminrecovery88")
-SMTP_USER  = os.environ.get("SMTP_USER", "")
-SMTP_PASS  = os.environ.get("SMTP_PASS", "")
+MP_TOKEN   = os.environ.get("MP_ACCESS_TOKEN", "APP_USR-1234567890-tu-token-de-mercadopago")
+APP_URL    = os.environ.get("APP_URL", "https://tu-app.up.railway.app").rstrip("/")
+ADMIN_PASS = os.environ.get("ADMIN_PASS", "dasoto88_panel")
+SMTP_USER  = os.environ.get("SMTP_USER", "tu_correo@gmail.com")
+SMTP_PASS  = os.environ.get("SMTP_PASS", "tu_app_password_de_gmail")
 DB_PATH    = os.path.join(os.path.dirname(__file__), "licencias.db")
 
 PLANES = {
